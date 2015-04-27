@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+	<classPathEntry location="target/classes" />
+
+	<context id="dvdrental" targetRuntime="MyBatis3">
+
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.RenameExampleClassAndMethodsPlugin">
+			<property name="classMethodSearchString" value="Example" />
+			<property name="classMethodReplaceString" value="Filter" />
+			<property name="parameterSearchString" value="example" />
+			<property name="parameterReplaceString" value="filter" />
+		</plugin>
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.CreateSubPackagePlugin">
+			<property name="modelSubPackage" value="gen" />
+			<property name="modelClassSuffix" value="Gen" />
+			<property name="mapperSubPackage" value="gen" />
+			<property name="mapperClassSuffix" value="Gen" />
+			<property name="exampleSubPackage" value="filter" />
+		</plugin>
+		<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.AddClassAnnotationsPlugin">
+			<property name="annotationClass" value="lombok.ToString" />
+			<property name="annotationString" value="@ToString(callSuper = true)" />
+		</plugin>
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.AddClassAnnotationsPlugin">
+			<property name="annotationClass" value="lombok.EqualsAndHashCode" />
+			<property name="annotationString" value="@EqualsAndHashCode(callSuper = true)" />
+		</plugin>
+
+		<commentGenerator>
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="org.postgresql.Driver" connectionURL="jdbc:postgresql://localhost:5432/dvdrental"
+			userId="postgres" password="postgres" />
+
+		<javaModelGenerator targetPackage="com.github.dcendents.mybatis.jaxws.db.model" targetProject="src/main/java">
+			<property name="rootClass" value="com.github.dcendents.mybatis.jaxws.db.IdTable" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="mybatis.mappers" targetProject="src/main/resources" />
+
+		<javaClientGenerator targetPackage="com.github.dcendents.mybatis.jaxws.db.client" targetProject="src/main/java"
+			type="MIXEDMAPPER" />
+
+		<table schema="public" tableName="film" alias="f">
+			<generatedKey column="film_id" sqlStatement="select nextval('public.film_film_id_seq')" />
+			<columnOverride column="film_id" property="id" />
+			<columnOverride column="last_update" property="modifiedOn" />
+			<columnOverride column="release_year" property="year" jdbcType="INTEGER" />
+			<columnOverride column="language_id" property="language" javaType="com.github.dcendents.mybatis.jaxws.db.model.Language"
+				typeHandler="com.github.dcendents.mybatis.jaxws.db.IdTableHandler" />
+			<ignoreColumn column="rating" />
+		</table>
+		<table schema="public" tableName="language" alias="l">
+			<generatedKey column="language_id" sqlStatement="select nextval('public.language_language_id_seq')" />
+			<columnOverride column="language_id" property="id" />
+			<columnOverride column="last_update" property="modifiedOn" />
+		</table>
+		<table schema="public" tableName="actor" alias="a">
+			<generatedKey column="actor_id" sqlStatement="select nextval('public.actor_actor_id_seq')" />
+			<columnOverride column="actor_id" property="id" />
+			<columnOverride column="last_update" property="modifiedOn" />
+		</table>
+		<table schema="public" tableName="category" alias="c">
+			<generatedKey column="category_id" sqlStatement="select nextval('public.category_category_id_seq')" />
+			<columnOverride column="category_id" property="id" />
+			<columnOverride column="last_update" property="modifiedOn" />
+		</table>
+
+	</context>
+
+</generatorConfiguration>

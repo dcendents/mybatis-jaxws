@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="mybatis/mybatis-jaxws-db.properties">
+		<!-- Table prefixes for SQL queries -->
+		<property name="Actor.prefix" value="a" />
+		<property name="Category.prefix" value="c" />
+		<property name="Film.prefix" value="f" />
+		<property name="FilmActor.prefix" value="fa"/>
+		<property name="FilmCategory.prefix" value="fc"/>
+		<property name="Language.prefix" value="l" />
+	</properties>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="org.postgresql.Driver" />
+				<property name="url" value="jdbc:postgresql://localhost:5432/dvdrental" />
+				<property name="username" value="postgres" />
+				<property name="password" value="postgres" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="mybatis/mappers/ActorMapper.xml" />
+		<mapper resource="mybatis/mappers/CategoryMapper.xml" />
+		<mapper resource="mybatis/mappers/FilmMapper.xml" />
+		<mapper resource="mybatis/mappers/LanguageMapper.xml" />
+	</mappers>
+</configuration>

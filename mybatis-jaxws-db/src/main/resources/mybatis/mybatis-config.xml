@@ -22,6 +22,12 @@
 				<property name="password" value="postgres" />
 			</dataSource>
 		</environment>
+		<environment id="production">
+			<transactionManager type="MANAGED" />
+			<dataSource type="JNDI">
+				<property name="data_source" value="java:jboss/datasources/DVDRental" />
+			</dataSource>
+		</environment>
 	</environments>
 	<mappers>
 		<mapper resource="mybatis/mappers/ActorMapper.xml" />

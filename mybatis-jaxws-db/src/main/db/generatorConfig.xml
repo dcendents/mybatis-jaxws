@@ -29,6 +29,15 @@
 			<property name="annotationClass" value="lombok.EqualsAndHashCode" />
 			<property name="annotationString" value="@EqualsAndHashCode(callSuper = true)" />
 		</plugin>
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.WrapObjectPlugin">
+			<property name="fullyQualifiedTableName" value="public.film" />
+			<property name="objectClass" value="com.github.dcendents.mybatis.jaxws.api.Film" />
+			<property name="excludes" value="language" />
+		</plugin>
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.WrapObjectPlugin">
+			<property name="fullyQualifiedTableName" value="public.actor" />
+			<property name="objectClass" value="com.github.dcendents.mybatis.jaxws.api.Actor" />
+		</plugin>
 
 		<commentGenerator>
 			<property name="suppressDate" value="true" />
@@ -50,10 +59,11 @@
 			<generatedKey column="film_id" sqlStatement="select nextval('public.film_film_id_seq')" />
 			<columnOverride column="film_id" property="id" />
 			<columnOverride column="last_update" property="modifiedOn" />
-			<columnOverride column="release_year" property="year" jdbcType="INTEGER" />
+			<columnOverride column="release_year" property="year" javaType="int" jdbcType="INTEGER" />
 			<columnOverride column="language_id" property="language" javaType="com.github.dcendents.mybatis.jaxws.db.model.Language"
 				typeHandler="com.github.dcendents.mybatis.jaxws.db.IdTableHandler" />
-			<ignoreColumn column="rating" />
+			<columnOverride column="rating" javaType="com.github.dcendents.mybatis.jaxws.api.Rating" typeHandler="com.github.dcendents.mybatis.jaxws.db.RatingHandler" />
+			<ignoreColumn column="fulltext" />
 		</table>
 		<table schema="public" tableName="language" alias="l">
 			<generatedKey column="language_id" sqlStatement="select nextval('public.language_language_id_seq')" />

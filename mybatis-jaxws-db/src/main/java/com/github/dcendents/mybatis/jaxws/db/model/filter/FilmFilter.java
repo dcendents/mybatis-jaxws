@@ -1,5 +1,6 @@
 package com.github.dcendents.mybatis.jaxws.db.model.filter;
 
+import com.github.dcendents.mybatis.jaxws.api.Rating;
 import com.github.dcendents.mybatis.jaxws.db.model.Language;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -159,6 +160,8 @@ public class FilmFilter {
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> languageCriteria;
 
+        protected List<Criterion> ratingCriteria;
+
         protected List<Criterion> allCriteria;
 
         protected List<Criterion> criteria;
@@ -167,6 +170,7 @@ public class FilmFilter {
             super();
             criteria = new ArrayList<Criterion>();
             languageCriteria = new ArrayList<Criterion>();
+            ratingCriteria = new ArrayList<Criterion>();
         }
 
         public List<Criterion> getLanguageCriteria() {
@@ -189,9 +193,30 @@ public class FilmFilter {
             allCriteria = null;
         }
 
+        public List<Criterion> getRatingCriteria() {
+            return ratingCriteria;
+        }
+
+        protected void addRatingCriterion(String condition, Object value, String property) {
+            if (value == null) {
+                throw new RuntimeException("Value for " + property + " cannot be null");
+            }
+            ratingCriteria.add(new Criterion(condition, value, "com.github.dcendents.mybatis.jaxws.db.RatingHandler"));
+            allCriteria = null;
+        }
+
+        protected void addRatingCriterion(String condition, Rating value1, Rating value2, String property) {
+            if (value1 == null || value2 == null) {
+                throw new RuntimeException("Between values for " + property + " cannot be null");
+            }
+            ratingCriteria.add(new Criterion(condition, value1, value2, "com.github.dcendents.mybatis.jaxws.db.RatingHandler"));
+            allCriteria = null;
+        }
+
         public boolean isValid() {
             return criteria.size() > 0
-                || languageCriteria.size() > 0;
+                || languageCriteria.size() > 0
+                || ratingCriteria.size() > 0;
         }
 
         public List<Criterion> getAllCriteria() {
@@ -199,6 +224,7 @@ public class FilmFilter {
                 allCriteria = new ArrayList<Criterion>();
                 allCriteria.addAll(criteria);
                 allCriteria.addAll(languageCriteria);
+                allCriteria.addAll(ratingCriteria);
             }
             return allCriteria;
         }
@@ -441,52 +467,52 @@ public class FilmFilter {
             return (Criteria) this;
         }
 
-        public Criteria andYearEqualTo(Object value) {
+        public Criteria andYearEqualTo(int value) {
             addCriterion("f.release_year =", value, "year");
             return (Criteria) this;
         }
 
-        public Criteria andYearNotEqualTo(Object value) {
+        public Criteria andYearNotEqualTo(int value) {
             addCriterion("f.release_year <>", value, "year");
             return (Criteria) this;
         }
 
-        public Criteria andYearGreaterThan(Object value) {
+        public Criteria andYearGreaterThan(int value) {
             addCriterion("f.release_year >", value, "year");
             return (Criteria) this;
         }
 
-        public Criteria andYearGreaterThanOrEqualTo(Object value) {
+        public Criteria andYearGreaterThanOrEqualTo(int value) {
             addCriterion("f.release_year >=", value, "year");
             return (Criteria) this;
         }
 
-        public Criteria andYearLessThan(Object value) {
+        public Criteria andYearLessThan(int value) {
             addCriterion("f.release_year <", value, "year");
             return (Criteria) this;
         }
 
-        public Criteria andYearLessThanOrEqualTo(Object value) {
+        public Criteria andYearLessThanOrEqualTo(int value) {
             addCriterion("f.release_year <=", value, "year");
             return (Criteria) this;
         }
 
-        public Criteria andYearIn(List<Object> values) {
+        public Criteria andYearIn(List<Integer> values) {
             addCriterion("f.release_year in", values, "year");
             return (Criteria) this;
         }
 
-        public Criteria andYearNotIn(List<Object> values) {
+        public Criteria andYearNotIn(List<Integer> values) {
             addCriterion("f.release_year not in", values, "year");
             return (Criteria) this;
         }
 
-        public Criteria andYearBetween(Object value1, Object value2) {
+        public Criteria andYearBetween(int value1, int value2) {
             addCriterion("f.release_year between", value1, value2, "year");
             return (Criteria) this;
         }
 
-        public Criteria andYearNotBetween(Object value1, Object value2) {
+        public Criteria andYearNotBetween(int value1, int value2) {
             addCriterion("f.release_year not between", value1, value2, "year");
             return (Criteria) this;
         }
@@ -791,6 +817,76 @@ public class FilmFilter {
             return (Criteria) this;
         }
 
+        public Criteria andRatingIsNull() {
+            addCriterion("f.rating is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRatingIsNotNull() {
+            addCriterion("f.rating is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRatingEqualTo(Rating value) {
+            addRatingCriterion("f.rating =", value, "rating");
+            return (Criteria) this;
+        }
+
+        public Criteria andRatingNotEqualTo(Rating value) {
+            addRatingCriterion("f.rating <>", value, "rating");
+            return (Criteria) this;
+        }
+
+        public Criteria andRatingGreaterThan(Rating value) {
+            addRatingCriterion("f.rating >", value, "rating");
+            return (Criteria) this;
+        }
+
+        public Criteria andRatingGreaterThanOrEqualTo(Rating value) {
+            addRatingCriterion("f.rating >=", value, "rating");
+            return (Criteria) this;
+        }
+
+        public Criteria andRatingLessThan(Rating value) {
+            addRatingCriterion("f.rating <", value, "rating");
+            return (Criteria) this;
+        }
+
+        public Criteria andRatingLessThanOrEqualTo(Rating value) {
+            addRatingCriterion("f.rating <=", value, "rating");
+            return (Criteria) this;
+        }
+
+        public Criteria andRatingLike(Rating value) {
+            addRatingCriterion("f.rating like", value, "rating");
+            return (Criteria) this;
+        }
+
+        public Criteria andRatingNotLike(Rating value) {
+            addRatingCriterion("f.rating not like", value, "rating");
+            return (Criteria) this;
+        }
+
+        public Criteria andRatingIn(List<Rating> values) {
+            addRatingCriterion("f.rating in", values, "rating");
+            return (Criteria) this;
+        }
+
+        public Criteria andRatingNotIn(List<Rating> values) {
+            addRatingCriterion("f.rating not in", values, "rating");
+            return (Criteria) this;
+        }
+
+        public Criteria andRatingBetween(Rating value1, Rating value2) {
+            addRatingCriterion("f.rating between", value1, value2, "rating");
+            return (Criteria) this;
+        }
+
+        public Criteria andRatingNotBetween(Rating value1, Rating value2) {
+            addRatingCriterion("f.rating not between", value1, value2, "rating");
+            return (Criteria) this;
+        }
+
         public Criteria andModifiedOnIsNull() {
             addCriterion("f.last_update is null");
             return (Criteria) this;
@@ -908,66 +1004,6 @@ public class FilmFilter {
 
         public Criteria andSpecialFeaturesNotBetween(Object value1, Object value2) {
             addCriterion("f.special_features not between", value1, value2, "specialFeatures");
-            return (Criteria) this;
-        }
-
-        public Criteria andFulltextIsNull() {
-            addCriterion("f.fulltext is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFulltextIsNotNull() {
-            addCriterion("f.fulltext is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andFulltextEqualTo(Object value) {
-            addCriterion("f.fulltext =", value, "fulltext");
-            return (Criteria) this;
-        }
-
-        public Criteria andFulltextNotEqualTo(Object value) {
-            addCriterion("f.fulltext <>", value, "fulltext");
-            return (Criteria) this;
-        }
-
-        public Criteria andFulltextGreaterThan(Object value) {
-            addCriterion("f.fulltext >", value, "fulltext");
-            return (Criteria) this;
-        }
-
-        public Criteria andFulltextGreaterThanOrEqualTo(Object value) {
-            addCriterion("f.fulltext >=", value, "fulltext");
-            return (Criteria) this;
-        }
-
-        public Criteria andFulltextLessThan(Object value) {
-            addCriterion("f.fulltext <", value, "fulltext");
-            return (Criteria) this;
-        }
-
-        public Criteria andFulltextLessThanOrEqualTo(Object value) {
-            addCriterion("f.fulltext <=", value, "fulltext");
-            return (Criteria) this;
-        }
-
-        public Criteria andFulltextIn(List<Object> values) {
-            addCriterion("f.fulltext in", values, "fulltext");
-            return (Criteria) this;
-        }
-
-        public Criteria andFulltextNotIn(List<Object> values) {
-            addCriterion("f.fulltext not in", values, "fulltext");
-            return (Criteria) this;
-        }
-
-        public Criteria andFulltextBetween(Object value1, Object value2) {
-            addCriterion("f.fulltext between", value1, value2, "fulltext");
-            return (Criteria) this;
-        }
-
-        public Criteria andFulltextNotBetween(Object value1, Object value2) {
-            addCriterion("f.fulltext not between", value1, value2, "fulltext");
             return (Criteria) this;
         }
     }

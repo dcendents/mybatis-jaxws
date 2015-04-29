@@ -54,15 +54,15 @@ public interface FilmMapperGen {
         "language_id, ",
         "rental_duration, rental_rate, ",
         "length, replacement_cost, ",
-        "last_update, special_features, ",
-        "fulltext)",
+        "rating, ",
+        "last_update, special_features)",
         "values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, ",
         "#{description,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, ",
         "#{language,jdbcType=SMALLINT,typeHandler=com.github.dcendents.mybatis.jaxws.db.IdTableHandler}, ",
         "#{rentalDuration,jdbcType=SMALLINT}, #{rentalRate,jdbcType=NUMERIC}, ",
         "#{length,jdbcType=SMALLINT}, #{replacementCost,jdbcType=NUMERIC}, ",
-        "#{modifiedOn,jdbcType=TIMESTAMP}, #{specialFeatures,jdbcType=ARRAY}, ",
-        "#{fulltext,jdbcType=OTHER})"
+        "#{rating,jdbcType=VARCHAR,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler}, ",
+        "#{modifiedOn,jdbcType=TIMESTAMP}, #{specialFeatures,jdbcType=ARRAY})"
     })
     @SelectKey(statement="select nextval('public.film_film_id_seq')", keyProperty="id", before=true, resultType=Integer.class)
     int insert(Film record);
@@ -102,7 +102,7 @@ public interface FilmMapperGen {
         "f.film_id as f_film_id, f.title as f_title, f.description as f_description, ",
         "f.release_year as f_release_year, f.language_id as f_language_id, f.rental_duration as f_rental_duration, ",
         "f.rental_rate as f_rental_rate, f.length as f_length, f.replacement_cost as f_replacement_cost, ",
-        "f.last_update as f_last_update, f.special_features as f_special_features, f.fulltext as f_fulltext",
+        "f.rating as f_rating, f.last_update as f_last_update, f.special_features as f_special_features",
         "from public.film f",
         "where f.film_id = #{id,jdbcType=INTEGER}"
     })
@@ -149,9 +149,9 @@ public interface FilmMapperGen {
           "rental_rate = #{rentalRate,jdbcType=NUMERIC},",
           "length = #{length,jdbcType=SMALLINT},",
           "replacement_cost = #{replacementCost,jdbcType=NUMERIC},",
+          "rating = #{rating,jdbcType=VARCHAR,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler},",
           "last_update = #{modifiedOn,jdbcType=TIMESTAMP},",
-          "special_features = #{specialFeatures,jdbcType=ARRAY},",
-          "fulltext = #{fulltext,jdbcType=OTHER}",
+          "special_features = #{specialFeatures,jdbcType=ARRAY}",
         "where film_id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Film record);

@@ -13,6 +13,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
+import com.github.dcendents.mybatis.jaxws.api.Rating;
 import com.github.dcendents.mybatis.jaxws.db.client.ActorMapper;
 import com.github.dcendents.mybatis.jaxws.db.client.CategoryMapper;
 import com.github.dcendents.mybatis.jaxws.db.client.FilmMapper;
@@ -72,9 +73,11 @@ public class InsertTest {
 		film.setTitle("Insert Test");
 		film.setDescription("Description");
 		film.setLanguage(language);
+		film.setRating(Rating.G);
 		film.setRentalDuration((short) 5);
 		film.setRentalRate(new BigDecimal(4.49));
 		film.setReplacementCost(new BigDecimal(19.99));
+		film.setYear(2015);
 		film.setModifiedOn(now);
 		
 		ActorMapper actorMapper = session.getMapper(ActorMapper.class);

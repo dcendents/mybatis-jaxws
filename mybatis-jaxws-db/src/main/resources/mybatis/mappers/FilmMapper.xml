@@ -15,9 +15,9 @@
     <result column="f_rental_rate" jdbcType="NUMERIC" property="rentalRate" />
     <result column="f_length" jdbcType="SMALLINT" property="length" />
     <result column="f_replacement_cost" jdbcType="NUMERIC" property="replacementCost" />
+    <result column="f_rating" jdbcType="VARCHAR" property="rating" typeHandler="com.github.dcendents.mybatis.jaxws.db.RatingHandler" />
     <result column="f_last_update" jdbcType="TIMESTAMP" property="modifiedOn" />
     <result column="f_special_features" jdbcType="ARRAY" property="specialFeatures" />
-    <result column="f_fulltext" jdbcType="OTHER" property="fulltext" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -62,6 +62,25 @@
                   and ${criterion.condition}
                   <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem,typeHandler=com.github.dcendents.mybatis.jaxws.db.IdTableHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.ratingCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler} and #{criterion.secondValue,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler}
                   </foreach>
                 </when>
               </choose>
@@ -118,6 +137,25 @@
                 </when>
               </choose>
             </foreach>
+            <foreach collection="criteria.ratingCriteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler} and #{criterion.secondValue,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
           </trim>
         </if>
       </foreach>
@@ -130,8 +168,8 @@
     -->
     f.film_id as f_film_id, f.title as f_title, f.description as f_description, f.release_year as f_release_year, 
     f.language_id as f_language_id, f.rental_duration as f_rental_duration, f.rental_rate as f_rental_rate, 
-    f.length as f_length, f.replacement_cost as f_replacement_cost, f.last_update as f_last_update, 
-    f.special_features as f_special_features, f.fulltext as f_fulltext
+    f.length as f_length, f.replacement_cost as f_replacement_cost, f.rating as f_rating, 
+    f.last_update as f_last_update, f.special_features as f_special_features
   </sql>
   <select id="selectByFilter" parameterType="com.github.dcendents.mybatis.jaxws.db.model.filter.FilmFilter" resultMap="BaseResultMap">
     <!--
@@ -178,9 +216,7 @@
       <if test="description != null">
         description,
       </if>
-      <if test="year != null">
-        release_year,
-      </if>
+      release_year,
       <if test="language != null">
         language_id,
       </if>
@@ -196,14 +232,14 @@
       <if test="replacementCost != null">
         replacement_cost,
       </if>
+      <if test="rating != null">
+        rating,
+      </if>
       <if test="modifiedOn != null">
         last_update,
       </if>
       <if test="specialFeatures != null">
         special_features,
-      </if>
-      <if test="fulltext != null">
-        fulltext,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -214,9 +250,7 @@
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="year != null">
-        #{year,jdbcType=INTEGER},
-      </if>
+      #{year,jdbcType=INTEGER},
       <if test="language != null">
         #{language,jdbcType=SMALLINT,typeHandler=com.github.dcendents.mybatis.jaxws.db.IdTableHandler},
       </if>
@@ -232,14 +266,14 @@
       <if test="replacementCost != null">
         #{replacementCost,jdbcType=NUMERIC},
       </if>
+      <if test="rating != null">
+        #{rating,jdbcType=VARCHAR,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler},
+      </if>
       <if test="modifiedOn != null">
         #{modifiedOn,jdbcType=TIMESTAMP},
       </if>
       <if test="specialFeatures != null">
         #{specialFeatures,jdbcType=ARRAY},
-      </if>
-      <if test="fulltext != null">
-        #{fulltext,jdbcType=OTHER},
       </if>
     </trim>
   </insert>
@@ -287,14 +321,14 @@
       <if test="record.replacementCost != null">
         f.replacement_cost = #{record.replacementCost,jdbcType=NUMERIC},
       </if>
+      <if test="record.rating != null">
+        f.rating = #{record.rating,jdbcType=VARCHAR,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler},
+      </if>
       <if test="record.modifiedOn != null">
         f.last_update = #{record.modifiedOn,jdbcType=TIMESTAMP},
       </if>
       <if test="record.specialFeatures != null">
         f.special_features = #{record.specialFeatures,jdbcType=ARRAY},
-      </if>
-      <if test="record.fulltext != null">
-        f.fulltext = #{record.fulltext,jdbcType=OTHER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -316,9 +350,9 @@
       f.rental_rate = #{record.rentalRate,jdbcType=NUMERIC},
       f.length = #{record.length,jdbcType=SMALLINT},
       f.replacement_cost = #{record.replacementCost,jdbcType=NUMERIC},
+      f.rating = #{record.rating,jdbcType=VARCHAR,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler},
       f.last_update = #{record.modifiedOn,jdbcType=TIMESTAMP},
-      f.special_features = #{record.specialFeatures,jdbcType=ARRAY},
-      f.fulltext = #{record.fulltext,jdbcType=OTHER}
+      f.special_features = #{record.specialFeatures,jdbcType=ARRAY}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -354,14 +388,14 @@
       <if test="replacementCost != null">
         replacement_cost = #{replacementCost,jdbcType=NUMERIC},
       </if>
+      <if test="rating != null">
+        rating = #{rating,jdbcType=VARCHAR,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler},
+      </if>
       <if test="modifiedOn != null">
         last_update = #{modifiedOn,jdbcType=TIMESTAMP},
       </if>
       <if test="specialFeatures != null">
         special_features = #{specialFeatures,jdbcType=ARRAY},
-      </if>
-      <if test="fulltext != null">
-        fulltext = #{fulltext,jdbcType=OTHER},
       </if>
     </set>
     where film_id = #{id,jdbcType=INTEGER}

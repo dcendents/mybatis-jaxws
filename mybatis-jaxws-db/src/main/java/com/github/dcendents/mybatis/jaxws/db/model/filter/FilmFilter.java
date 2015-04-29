@@ -946,66 +946,6 @@ public class FilmFilter {
             addCriterion("f.last_update not between", value1, value2, "modifiedOn");
             return (Criteria) this;
         }
-
-        public Criteria andSpecialFeaturesIsNull() {
-            addCriterion("f.special_features is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecialFeaturesIsNotNull() {
-            addCriterion("f.special_features is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecialFeaturesEqualTo(Object value) {
-            addCriterion("f.special_features =", value, "specialFeatures");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecialFeaturesNotEqualTo(Object value) {
-            addCriterion("f.special_features <>", value, "specialFeatures");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecialFeaturesGreaterThan(Object value) {
-            addCriterion("f.special_features >", value, "specialFeatures");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecialFeaturesGreaterThanOrEqualTo(Object value) {
-            addCriterion("f.special_features >=", value, "specialFeatures");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecialFeaturesLessThan(Object value) {
-            addCriterion("f.special_features <", value, "specialFeatures");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecialFeaturesLessThanOrEqualTo(Object value) {
-            addCriterion("f.special_features <=", value, "specialFeatures");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecialFeaturesIn(List<Object> values) {
-            addCriterion("f.special_features in", values, "specialFeatures");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecialFeaturesNotIn(List<Object> values) {
-            addCriterion("f.special_features not in", values, "specialFeatures");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecialFeaturesBetween(Object value1, Object value2) {
-            addCriterion("f.special_features between", value1, value2, "specialFeatures");
-            return (Criteria) this;
-        }
-
-        public Criteria andSpecialFeaturesNotBetween(Object value1, Object value2) {
-            addCriterion("f.special_features not between", value1, value2, "specialFeatures");
-            return (Criteria) this;
-        }
     }
 
     /**

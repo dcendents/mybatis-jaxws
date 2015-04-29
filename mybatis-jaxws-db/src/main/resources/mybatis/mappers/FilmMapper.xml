@@ -17,7 +17,6 @@
     <result column="f_replacement_cost" jdbcType="NUMERIC" property="replacementCost" />
     <result column="f_rating" jdbcType="VARCHAR" property="rating" typeHandler="com.github.dcendents.mybatis.jaxws.db.RatingHandler" />
     <result column="f_last_update" jdbcType="TIMESTAMP" property="modifiedOn" />
-    <result column="f_special_features" jdbcType="ARRAY" property="specialFeatures" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -169,7 +168,7 @@
     f.film_id as f_film_id, f.title as f_title, f.description as f_description, f.release_year as f_release_year, 
     f.language_id as f_language_id, f.rental_duration as f_rental_duration, f.rental_rate as f_rental_rate, 
     f.length as f_length, f.replacement_cost as f_replacement_cost, f.rating as f_rating, 
-    f.last_update as f_last_update, f.special_features as f_special_features
+    f.last_update as f_last_update
   </sql>
   <select id="selectByFilter" parameterType="com.github.dcendents.mybatis.jaxws.db.model.filter.FilmFilter" resultMap="BaseResultMap">
     <!--
@@ -238,9 +237,6 @@
       <if test="modifiedOn != null">
         last_update,
       </if>
-      <if test="specialFeatures != null">
-        special_features,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       #{id,jdbcType=INTEGER},
@@ -271,9 +267,6 @@
       </if>
       <if test="modifiedOn != null">
         #{modifiedOn,jdbcType=TIMESTAMP},
-      </if>
-      <if test="specialFeatures != null">
-        #{specialFeatures,jdbcType=ARRAY},
       </if>
     </trim>
   </insert>
@@ -327,9 +320,6 @@
       <if test="record.modifiedOn != null">
         f.last_update = #{record.modifiedOn,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.specialFeatures != null">
-        f.special_features = #{record.specialFeatures,jdbcType=ARRAY},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -351,8 +341,7 @@
       f.length = #{record.length,jdbcType=SMALLINT},
       f.replacement_cost = #{record.replacementCost,jdbcType=NUMERIC},
       f.rating = #{record.rating,jdbcType=VARCHAR,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler},
-      f.last_update = #{record.modifiedOn,jdbcType=TIMESTAMP},
-      f.special_features = #{record.specialFeatures,jdbcType=ARRAY}
+      f.last_update = #{record.modifiedOn,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -393,9 +382,6 @@
       </if>
       <if test="modifiedOn != null">
         last_update = #{modifiedOn,jdbcType=TIMESTAMP},
-      </if>
-      <if test="specialFeatures != null">
-        special_features = #{specialFeatures,jdbcType=ARRAY},
       </if>
     </set>
     where film_id = #{id,jdbcType=INTEGER}

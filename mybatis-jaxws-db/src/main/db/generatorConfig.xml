@@ -64,6 +64,7 @@
 				typeHandler="com.github.dcendents.mybatis.jaxws.db.IdTableHandler" />
 			<columnOverride column="rating" javaType="com.github.dcendents.mybatis.jaxws.api.Rating" typeHandler="com.github.dcendents.mybatis.jaxws.db.RatingHandler" />
 			<ignoreColumn column="fulltext" />
+			<ignoreColumn column="special_features" />
 		</table>
 		<table schema="public" tableName="language" alias="l">
 			<generatedKey column="language_id" sqlStatement="select nextval('public.language_language_id_seq')" />

@@ -21,14 +21,14 @@ public interface FilmMapper extends FilmMapperGen {
         "rental_duration, rental_rate, ",
         "length, replacement_cost, ",
         "rating, ",
-        "last_update, special_features)",
+        "last_update)",
         "values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, ",
         "#{description,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, ",
         "#{language,jdbcType=SMALLINT,typeHandler=com.github.dcendents.mybatis.jaxws.db.IdTableHandler}, ",
         "#{rentalDuration,jdbcType=SMALLINT}, #{rentalRate,jdbcType=NUMERIC}, ",
         "#{length,jdbcType=SMALLINT}, #{replacementCost,jdbcType=NUMERIC}, ",
         "#{rating,jdbcType=VARCHAR,typeHandler=com.github.dcendents.mybatis.jaxws.db.RatingHandler}::mpaa_rating, ",
-        "#{modifiedOn,jdbcType=TIMESTAMP}, #{specialFeatures,jdbcType=ARRAY})"
+        "#{modifiedOn,jdbcType=TIMESTAMP})"
     })
     @SelectKey(statement="select nextval('public.film_film_id_seq')", keyProperty="id", before=true, resultType=Integer.class)
     @Override

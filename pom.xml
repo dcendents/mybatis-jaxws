@@ -8,6 +8,7 @@
 	<modules>
 		<module>mybatis-jaxws-api</module>
 		<module>mybatis-jaxws-db</module>
+		<module>mybatis-jaxws-war</module>
 	</modules>
 	<build>
 		<plugins>
@@ -47,6 +48,7 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.16.4</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>

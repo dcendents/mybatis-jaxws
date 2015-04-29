@@ -1,45 +1,60 @@
 package com.github.dcendents.mybatis.jaxws.web;
 
-import java.io.InputStream;
 
+import javax.inject.Inject;
 import javax.jws.WebService;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.mybatis.cdi.Mapper;
+import org.mybatis.cdi.Transactional;
 
+import com.github.dcendents.mybatis.jaxws.db.client.ActorMapper;
+import com.github.dcendents.mybatis.jaxws.db.client.CategoryMapper;
 import com.github.dcendents.mybatis.jaxws.db.client.FilmMapper;
+import com.github.dcendents.mybatis.jaxws.db.model.Actor;
+import com.github.dcendents.mybatis.jaxws.db.model.Category;
 import com.github.dcendents.mybatis.jaxws.db.model.Film;
 
 @WebService
 public class JaxwsServiceImpl implements JaxwsService {
-	
-	private SqlSessionFactory sqlSessionFactory;
-	
-	public JaxwsServiceImpl() throws Exception {
-		String resource = "mybatis/mybatis-config.xml";
-		InputStream inputStream = Resources.getResourceAsStream(resource);
-		sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, "production");
-	}
+
+	@Inject
+	@Mapper
+	private FilmMapper filmMapper;
+	@Inject
+	@Mapper
+	private ActorMapper actorMapper;
+	@Inject
+	@Mapper
+	private CategoryMapper categoryMapper;
 
 	@Override
-	public boolean insertFilm(Film film) {
-		return false;
+	@Transactional
+	public int insertFilm(Film film) {
+		filmMapper.insert(film);
+
+		for (Actor actor : film.getActors()) {
+			if (actor.getId() == null) {
+				actorMapper.insert(actor);
+			}
+			actorMapper.insertFilmActor(actor, film);
+		}
+
+		for (Category category : film.getCategories()) {
+			if (category.getId() == null) {
+				categoryMapper.insert(category);
+			}
+			categoryMapper.insertFilmCategory(category, film);
+		}
+
+		return film.getId();
 	}
 
 	@Override
 	public Film selectFilm(int id) {
 		Film film = null;
-		
-		SqlSession session = sqlSessionFactory.openSession();
-		try {
-			FilmMapper mapper = session.getMapper(FilmMapper.class);
-			film = mapper.selectByPrimaryKeyWithAssociations(10);
-		} finally {
-			session.close();
-		}
-		
+
+		film = filmMapper.selectByPrimaryKeyWithAssociations(id);
+
 		return film;
 	}
 }

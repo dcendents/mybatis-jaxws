@@ -13,5 +13,5 @@ public interface JaxwsService {
 	Film selectFilm(@WebParam(name = "id") int id);
 	
 	@WebMethod
-	boolean insertFilm(@WebParam(name = "film") Film film);
+	int insertFilm(@WebParam(name = "film") Film film);
 }

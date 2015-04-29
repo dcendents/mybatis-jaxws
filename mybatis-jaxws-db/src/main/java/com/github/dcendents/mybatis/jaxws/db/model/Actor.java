@@ -22,4 +22,7 @@ public class Actor extends ActorGen {
 	@Setter
 	private List<Film> film;
 
+	public com.github.dcendents.mybatis.jaxws.api.Actor convert() {
+		return actor;
+	}
 }

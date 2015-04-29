@@ -25,6 +25,7 @@ public class SelectTest {
 			Film film = mapper.selectByPrimaryKeyWithAssociations(10);
 
 			System.out.println(film);
+			System.out.println(film.convert());
 		} finally {
 			session.close();
 		}

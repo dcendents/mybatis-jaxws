@@ -11,6 +11,7 @@ public class Film {
 	private String description;
 	private Language language;
 	private int year;
+	private Rating rating;
 	private Short length;
 	private String[] categories;
 	private List<Actor> actors;

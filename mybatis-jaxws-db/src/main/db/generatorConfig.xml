@@ -7,13 +7,13 @@
 	<context id="dvdrental" targetRuntime="MyBatis3">
 
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
-		<plugin type="com.github.dcendents.mybatis.generator.plugin.RenameExampleClassAndMethodsPlugin">
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.rename.RenameExampleClassAndMethodsPlugin">
 			<property name="classMethodSearchString" value="Example" />
 			<property name="classMethodReplaceString" value="Filter" />
 			<property name="parameterSearchString" value="example" />
 			<property name="parameterReplaceString" value="filter" />
 		</plugin>
-		<plugin type="com.github.dcendents.mybatis.generator.plugin.CreateSubPackagePlugin">
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.subpackage.CreateSubPackagePlugin">
 			<property name="modelSubPackage" value="gen" />
 			<property name="modelClassSuffix" value="Gen" />
 			<property name="mapperSubPackage" value="gen" />
@@ -21,20 +21,20 @@
 			<property name="exampleSubPackage" value="filter" />
 		</plugin>
 		<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
-		<plugin type="com.github.dcendents.mybatis.generator.plugin.AddClassAnnotationsPlugin">
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.annotation.AddClassAnnotationsPlugin">
 			<property name="annotationClass" value="lombok.ToString" />
 			<property name="annotationString" value="@ToString(callSuper = true)" />
 		</plugin>
-		<plugin type="com.github.dcendents.mybatis.generator.plugin.AddClassAnnotationsPlugin">
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.annotation.AddClassAnnotationsPlugin">
 			<property name="annotationClass" value="lombok.EqualsAndHashCode" />
 			<property name="annotationString" value="@EqualsAndHashCode(callSuper = true)" />
 		</plugin>
-		<plugin type="com.github.dcendents.mybatis.generator.plugin.WrapObjectPlugin">
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.wrap.WrapObjectPlugin">
 			<property name="fullyQualifiedTableName" value="public.film" />
 			<property name="objectClass" value="com.github.dcendents.mybatis.jaxws.api.Film" />
 			<property name="excludes" value="language" />
 		</plugin>
-		<plugin type="com.github.dcendents.mybatis.generator.plugin.WrapObjectPlugin">
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.wrap.WrapObjectPlugin">
 			<property name="fullyQualifiedTableName" value="public.actor" />
 			<property name="objectClass" value="com.github.dcendents.mybatis.jaxws.api.Actor" />
 		</plugin>

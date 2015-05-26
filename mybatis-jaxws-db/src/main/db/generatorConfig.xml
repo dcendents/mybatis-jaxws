@@ -38,6 +38,26 @@
 			<property name="fullyQualifiedTableName" value="public.actor" />
 			<property name="objectClass" value="com.github.dcendents.mybatis.jaxws.api.Actor" />
 		</plugin>
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.wrap.WrapObjectPlugin">
+			<property name="fullyQualifiedTableName" value="public.car" />
+			<property name="objectClass" value="com.github.dcendents.mybatis.jaxws.api.complex.Car" />
+		</plugin>
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.wrap.WrapObjectPlugin">
+			<property name="fullyQualifiedTableName" value="public.chopper" />
+			<property name="objectClass" value="com.github.dcendents.mybatis.jaxws.api.complex.Chopper" />
+		</plugin>
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.wrap.WrapObjectPlugin">
+			<property name="fullyQualifiedTableName" value="public.passenger" />
+			<property name="objectClass" value="com.github.dcendents.mybatis.jaxws.api.complex.Passenger" />
+		</plugin>
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.model.AlterModelPlugin">
+			<property name="fullyQualifiedTableName" value="public.car" />
+			<property name="addInterfaces" value="com.github.dcendents.mybatis.jaxws.db.model.Vehicle" />
+		</plugin>
+		<plugin type="com.github.dcendents.mybatis.generator.plugin.model.AlterModelPlugin">
+			<property name="fullyQualifiedTableName" value="public.chopper" />
+			<property name="addInterfaces" value="com.github.dcendents.mybatis.jaxws.db.model.Vehicle" />
+		</plugin>
 
 		<commentGenerator>
 			<property name="suppressDate" value="true" />
@@ -79,6 +99,18 @@
 		<table schema="public" tableName="category" alias="c">
 			<generatedKey column="category_id" sqlStatement="select nextval('public.category_category_id_seq')" />
 			<columnOverride column="category_id" property="id" />
+			<columnOverride column="last_update" property="modifiedOn" />
+		</table>
+		<table schema="public" tableName="car" alias="car">
+			<generatedKey column="id" sqlStatement="select nextval('public.vehicle_id_seq')" />
+			<columnOverride column="last_update" property="modifiedOn" />
+		</table>
+		<table schema="public" tableName="chopper" alias="chopper">
+			<generatedKey column="id" sqlStatement="select nextval('public.vehicle_id_seq')" />
+			<columnOverride column="last_update" property="modifiedOn" />
+		</table>
+		<table schema="public" tableName="passenger" alias="passenger">
+			<generatedKey column="id" sqlStatement="select nextval('public.passenger_id_seq')" />
 			<columnOverride column="last_update" property="modifiedOn" />
 		</table>
 
